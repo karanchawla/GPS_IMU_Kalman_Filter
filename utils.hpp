@@ -1,12 +1,10 @@
 //
-//  tools.cpp
+//  utils.hpp
 //  ExtendedKalmanFilter
 //
 //  Created by Karan on 4/6/18.
 //  Copyright © 2018 Karan. All rights reserved.
 //
-
-#include "tools.hpp"
 
 MatrixXd calculate_joacobian(const VectorXd& v, const double dt)
 {
@@ -34,12 +32,12 @@ MatrixXd calculate_joacobian(const VectorXd& v, const double dt)
         const double r24 = psi_dot_inverse * (cos(psi) - cos(pdotp));
         const double r25 = dt * turn_radius * sin(pdotp) - (turn_radius/psi_dot) * (cos(psi) - cos(pdotp));
         
-        JA << 1.0, 0.0, r13, r14, r15, 0.0,
-        0.0, 1.0, r23, r24, r25, 0.0,
-        0.0, 0.0, 1.0, 0.0, dt,  0.0,
-        0.0, 0.0, 0.0, 1.0, 0.0,  dt,
-        0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
-        0.0, 0.0, 0.0, 0.0, 0.0, 1.0 ;
+        JA <<   1.0, 0.0, r13, r14, r15, 0.0,
+                0.0, 1.0, r23, r24, r25, 0.0,
+                0.0, 0.0, 1.0, 0.0, dt,  0.0,
+                0.0, 0.0, 0.0, 1.0, 0.0,  dt,
+                0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 1.0 ;
     }
     
     return JA;
