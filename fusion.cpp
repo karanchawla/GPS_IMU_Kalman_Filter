@@ -45,4 +45,19 @@ void EKF::predict()
     _state(5) = _state(5);
     
     _JA = calculate_joacobian(_state, _dt);
+    
+    _P = _JA * P * _JA.transpose() + _Q;
+}
+
+void EKF::update(<#const VectorXd &Hx#>, <#const MatrixXd &JH#>, <#const MatrixXd &R#>)
+{
+
+    _S = _JH * _P * _JH.transpose() + R;
+    // Compute the Kalman gain
+    _K = _P * _JH.transpose() * _S.inverse();
+    // Update the estimate
+    Eigen::VectorXd y = Z - Hx;
+    _state = _state + _K * y;
+    // Update the error covariance
+    _p = (_I - _K * JH) * P;
 }

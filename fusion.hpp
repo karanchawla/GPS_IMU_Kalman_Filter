@@ -29,6 +29,7 @@ namespace extended_kalman_filter
         void setQ(const MatrixXd &Q_in);
         VectorXd get_resulting_state() const;
         void predict();
+        void update(const VectorXd& Hx, const MatrixXd &JH, const MatrixXd &R);
     private:
         bool _init;
         int _num_states;
@@ -41,6 +42,8 @@ namespace extended_kalman_filter
         MatrixXd _R; // measurement noise covariance
         MatrixXd _I; // Identity matrix
         MatrixXd _JA; // Jacobian state matrix
+        MatrixXd _S; // Matrix for storing intermediate step in update part
+        Matrixxd _K; // Kalman Gain
         Eigen::VectorXd _state; // 6 element state vector
     };
 };
