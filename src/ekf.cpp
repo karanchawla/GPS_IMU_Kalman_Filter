@@ -25,6 +25,15 @@ void EKF::setQ(const Eigen::MatrixXd &Q_in)
 }
 void EKF::updateJA(const double dt)
 {
+    /*******************************************
+     * State Equation Update Rule
+        x + v/ψ˙(−sin(ψ) + sin(dtψ˙+ψ))
+        y + v/ψ˙(cos(ψ) − cos(dtψ˙+ψ))
+        dtψ˙+ ψ
+        dta + vψ˙
+        a
+     *******************************************/
+    
     // Updating state equations
     _state(0) = _state(0) + (_state(3)/_state(4)) * (sin(_state(4) * dt + _state(2)) - sin(_state(2)));
     _state(1) = _state(1) + (_state(3)/_state(4)) * (-cos(_state(4) * dt + _state(2)) + cos(_state(2)));
@@ -33,8 +42,7 @@ void EKF::updateJA(const double dt)
     _state(4) = _state(4);
     _state(5) = _state(5);
     
-    /* Calculate jacobian -
-     linearizing the dynamics by 1st order Taylor series approximation */
+    // Calculate jacobian
     _JA = calculate_joacobian(_state, dt);
 }
 

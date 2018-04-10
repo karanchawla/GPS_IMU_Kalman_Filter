@@ -38,7 +38,7 @@ private:
     Eigen::MatrixXd _JA; // Jacobian state matrix
     Eigen::MatrixXd _S; // Matrix for storing intermediate step in update part
     Eigen::MatrixXd _K; // Kalman Gain
-    Eigen::VectorXd _state; // 6 element state vector
+    Eigen::VectorXd _state; // State - x y heading velocity yaw_rat long_acceleration
 };
 
 #endif /* ekf_hpp */
