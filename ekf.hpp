@@ -23,13 +23,12 @@ public:
     void start(const int nin, const Eigen::VectorXd& xin, const Eigen::MatrixXd& Pin, const Eigen::MatrixXd& Fin, const Eigen::MatrixXd& Qin);
     void setQ(const Eigen::MatrixXd& Q_in);
     Eigen::VectorXd get_resulting_state() const;
+    void updateJA(const double dt);
     void predict();
     void update(const Eigen::VectorXd& Z, const Eigen::VectorXd& Hx, const Eigen::MatrixXd &JH, const Eigen::MatrixXd &R);
 private:
     bool _init;
     int _num_states;
-    double _dt;
-    double _dtGPS;
     
     Eigen::MatrixXd _P; // initial uncertainity
     Eigen::MatrixXd _Q; // process noise covariance

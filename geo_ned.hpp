@@ -31,34 +31,30 @@ namespace geodectic_converter
     class GeodecticConverter
     {
     public:
-        GeodecticConverter()
-        {
-            _have_reference = false;
-        }
         
-        ~GeodecticConverter()
-        {
-        }
+        GeodecticConverter();
         
         bool isInitialised();
+        
         void getReference(double &latitude, double &longitude, double &altitude);
+        
         void intializeReference(const double latitude, const double longitude, const double altitude);
+        
         void geodetic2Ecef(const double latitude, const double longitude, const double altitude, double* x,
                            double* y, double* z);
         void ecef2Geodetic(const double x, const double y, const double z, double* latitude,
                            double* longitude, double* altitude);
-        void ecef2Ned(const double x, const double y, const double z, double* north, double* east,
-                      double* down);
-        void ned2Ecef(const double north, const double east, const double down, double* x, double* y,
-                      double* z);
-        void geodetic2Ned(const double latitude, const double longitude, const double altitude,
-                          double* north, double* east, double* down);
-        void ned2Geodetic(const double north, const double east, const double down, double* latitude,
-                          double* longitude, double* altitude);
-        void geodetic2Enu(const double latitude, const double longitude, const double altitude,
-                          double* east, double* north, double* up);
-        void enu2Geodetic(const double east, const double north, const double up, double* latitude,
-                          double* longitude, double* altitude);
+        void ecef2Ned(const double x, const double y, const double z, double* north, double* east, double* down);
+        
+        void ned2Ecef(const double north, const double east, const double down, double* x, double* y, double* z);
+        
+        void geodetic2Ned(const double latitude, const double longitude, const double altitude, double* north, double* east, double* down);
+        
+        void ned2Geodetic(const double north, const double east, const double down, double* latitude, double* longitude, double* altitude);
+        
+        void geodetic2Enu(const double latitude, const double longitude, const double altitude, double* east, double* north, double* up);
+        
+        void enu2Geodetic(const double east, const double north, const double up, double* latitude, double* longitude, double* altitude);
     private:
         bool _have_reference;
         double _initial_latitude;

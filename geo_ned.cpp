@@ -10,6 +10,10 @@
 
 using namespace geodectic_converter;
 
+GeodecticConverter::GeodecticConverter()
+:_have_reference(false)
+{}
+
 bool GeodecticConverter::isInitialised()
 {
     return _have_reference;

@@ -23,26 +23,24 @@ void EKF::setQ(const Eigen::MatrixXd &Q_in)
 {
     _Q = Q_in;
 }
-
-Eigen::VectorXd EKF::get_resulting_state() const
-{
-    return _state;
-}
-
-void EKF::predict()
+void EKF::updateJA(const double dt)
 {
     // Updating state equations
-    _state(0) = _state(0) + (_state(3)/_state(4)) * (sin(_state(4) * _dt + _state(2)) - sin(_state(2)));
-    _state(1) = _state(1) + (_state(3)/_state(4)) * (-cos(_state(4) * _dt + _state(2)) + cos(_state(2)));
-    _state(2) = std::fmod((_state(2) + _state(4) * _dt + M_PI), (2.0 * M_PI)) - M_PI;
-    _state(3) = _state(3) + _state(5) * _dt;
+    _state(0) = _state(0) + (_state(3)/_state(4)) * (sin(_state(4) * dt + _state(2)) - sin(_state(2)));
+    _state(1) = _state(1) + (_state(3)/_state(4)) * (-cos(_state(4) * dt + _state(2)) + cos(_state(2)));
+    _state(2) = std::fmod((_state(2) + _state(4) * dt + M_PI), (2.0 * M_PI)) - M_PI;
+    _state(3) = _state(3) + _state(5) * dt;
     _state(4) = _state(4);
     _state(5) = _state(5);
     
     /* Calculate jacobian -
-    linearizing the dynamics by 1st order Taylor series approximation */
-    _JA = calculate_joacobian(_state, _dt);
-    
+     linearizing the dynamics by 1st order Taylor series approximation */
+    _JA = calculate_joacobian(_state, dt);
+}
+
+void EKF::predict()
+{
+    // Prediction step
     _P = _JA * _P * _JA.transpose() + _Q;
 }
 
@@ -57,4 +55,9 @@ void EKF::update(const Eigen::VectorXd& Z, const Eigen::VectorXd& Hx, const Eige
     _state = _state + _K * y;
     // Update the error covariance
     _P = (_I - _K * JH) * _P;
+}
+
+Eigen::VectorXd EKF::get_resulting_state() const
+{
+    return _state;
 }

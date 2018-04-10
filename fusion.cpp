@@ -20,7 +20,6 @@ Fusion::Fusion(double max_acceleration, double max_turn_rate, double max_yaw_acc
           0.0, 0.0, 0.0, 0.0, 1000.0, 0.0,
           0.0, 0.0, 0.0, 0.0, 0.0, 1000.0;
     
-    // Intialize dt or use log time?
     double varGPS = 5;
     double varSpeed = 0.1;
     double varYaw = 0.1;
@@ -71,7 +70,11 @@ void Fusion::compute(const DataPoint &data)
     const double dt = (data.get_timestamp() - _timestamp)/ 1.e6;
     _timestamp = data.get_timestamp();
     
+    // Update Q
     this->updateQ(dt);
+    // Update state and calculate jacobian
+    _KF.updateJA(dt);
+    // Prediction
     _KF.predict();
     
     /*******************************************
