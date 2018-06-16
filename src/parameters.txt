@@ -1,0 +1,10 @@
+# params
+vargps=0.05
+varspeed=0.001
+varyaw=0.05
+varaccel=0.1
+maxaccel=0.5
+maxturnrate=0.5
+maxyawaccel=0.1
+xOff=0.0
+yOff=0.0
