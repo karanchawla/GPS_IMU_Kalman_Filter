@@ -21,5 +21,6 @@ Here we have a velocity sensor (encoders/GPS velocity), which measures the vehic
 
 ![Ground robot model](https://github.com/karanchawla/GPS_INS_Fusion/blob/master/figure/CTRV-Model.png)
 
-# Output
-![](https://github.com/karanchawla/GPS_INS_Fusion/blob/master/figure/plot.png)
+## References
+1. @balzer82 for his tutorials on Kalman Filters.
+2. Probabilistic Robotics by Thrun, Burgard, and Fox.
